@@ -64,6 +64,15 @@ a { color: inherit; text-decoration: none; }
   backdrop-filter: blur(14px) saturate(140%);
   -webkit-backdrop-filter: blur(14px) saturate(140%);
   border-bottom: 1px solid var(--line);
+  transition: height 0.35s cubic-bezier(.2,.7,.2,1), background 0.35s ease, backdrop-filter 0.35s ease, box-shadow 0.35s ease;
+}
+.header.scrolled {
+  height: 72px;
+  background: rgba(250, 250, 244, 0.97);
+  backdrop-filter: blur(24px) saturate(200%);
+  -webkit-backdrop-filter: blur(24px) saturate(200%);
+  border-bottom-color: rgba(31,77,46,0.1);
+  box-shadow: 0 1px 32px rgba(0,0,0,0.07);
 }
 .header-inner {
   max-width: 1320px; width: 100%;
@@ -106,17 +115,36 @@ a { color: inherit; text-decoration: none; }
 
 .call-btn {
   display: inline-flex; align-items: center; gap: 10px;
-  background: var(--forest); color: white;
+  background: linear-gradient(180deg, #2d6b40 0%, #1f4d2e 55%, #163d24 100%);
+  color: white;
   padding: 13px 22px;
   border-radius: 999px;
-  font-weight: 700; font-size: 14px;
-  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: var(--shadow-soft);
+  font-weight: 800; font-size: 14px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.25);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.18),
+    inset 0 -1px 0 rgba(0,0,0,0.2),
+    0 3px 0 #0d2819,
+    0 6px 16px rgba(13,40,25,0.5),
+    0 2px 5px rgba(0,0,0,0.22);
+  transform: translateY(0);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
 }
 .call-btn:hover {
-  background: var(--forest-deep);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-glow);
+  transform: translateY(-3px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.2),
+    inset 0 -1px 0 rgba(0,0,0,0.2),
+    0 6px 0 #0d2819,
+    0 12px 28px rgba(13,40,25,0.6),
+    0 3px 8px rgba(0,0,0,0.28);
+}
+.call-btn:active {
+  transform: translateY(2px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.1),
+    0 1px 0 #0d2819,
+    0 2px 8px rgba(13,40,25,0.35);
 }
 .call-btn svg { width: 16px; height: 16px; }
 
@@ -144,23 +172,60 @@ a { color: inherit; text-decoration: none; }
   right: 22px; bottom: 22px;
   z-index: 60;
   display: inline-flex; align-items: center; gap: 12px;
-  background: var(--forest); color: white;
+  background: linear-gradient(180deg, #2d6b40 0%, #1f4d2e 55%, #163d24 100%);
+  color: white;
   padding: 14px 22px;
   border-radius: 999px;
-  font-weight: 700; font-size: 14px;
-  box-shadow: 0 24px 48px -16px rgba(31, 77, 46, 0.65);
-  transition: background 0.2s ease, transform 0.2s ease;
-  animation: ringPulse 2.6s ease-out infinite;
+  font-weight: 800; font-size: 14px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.25);
+  transform: translateY(0);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  animation: ringPulse 2.8s ease-out infinite;
 }
 .sticky-call:hover {
-  background: var(--forest-deep);
-  transform: translateY(-2px);
+  transform: translateY(-4px);
+  animation: none;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.2),
+    inset 0 -1px 0 rgba(0,0,0,0.22),
+    0 7px 0 #0d2819,
+    0 16px 36px rgba(13,40,25,0.7),
+    0 4px 10px rgba(0,0,0,0.32);
+}
+.sticky-call:active {
+  transform: translateY(2px);
+  animation: none;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.1),
+    0 1px 0 #0d2819,
+    0 3px 10px rgba(13,40,25,0.4);
 }
 .sticky-call svg { width: 16px; height: 16px; }
 @keyframes ringPulse {
-  0%   { box-shadow: 0 24px 48px -16px rgba(31, 77, 46, 0.65), 0 0 0 0 rgba(31, 77, 46, 0.55); }
-  70%  { box-shadow: 0 24px 48px -16px rgba(31, 77, 46, 0.65), 0 0 0 16px rgba(31, 77, 46, 0); }
-  100% { box-shadow: 0 24px 48px -16px rgba(31, 77, 46, 0.65), 0 0 0 0 rgba(31, 77, 46, 0); }
+  0% {
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.18),
+      inset 0 -1px 0 rgba(0,0,0,0.22),
+      0 4px 0 #0d2819,
+      0 10px 28px rgba(13,40,25,0.6),
+      0 0 0 0 rgba(31,77,46,0.55);
+  }
+  60% {
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.18),
+      inset 0 -1px 0 rgba(0,0,0,0.22),
+      0 4px 0 #0d2819,
+      0 10px 28px rgba(13,40,25,0.6),
+      0 0 0 18px rgba(31,77,46,0);
+  }
+  100% {
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.18),
+      inset 0 -1px 0 rgba(0,0,0,0.22),
+      0 4px 0 #0d2819,
+      0 10px 28px rgba(13,40,25,0.6),
+      0 0 0 0 rgba(31,77,46,0);
+  }
 }
 
 /* ============== UTILITIES ============== */
@@ -208,31 +273,67 @@ a { color: inherit; text-decoration: none; }
 
 .btn {
   display: inline-flex; align-items: center; gap: 12px;
-  background: var(--forest); color: white;
-  padding: 16px 28px;
-  border-radius: 8px;
-  font-weight: 700; font-size: 14px;
-  letter-spacing: 0.01em;
-  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: var(--shadow-soft);
+  background: linear-gradient(180deg, #2d6b40 0%, #1f4d2e 55%, #163d24 100%);
+  color: white;
+  padding: 16px 30px;
+  border-radius: 10px;
+  font-weight: 800; font-size: 14px;
+  letter-spacing: 0.03em;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.28);
   border: 0;
   cursor: pointer;
+  position: relative;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.18),
+    inset 0 -1px 0 rgba(0,0,0,0.22),
+    0 4px 0 #0d2819,
+    0 7px 18px rgba(13,40,25,0.58),
+    0 2px 6px rgba(0,0,0,0.28);
+  transform: translateY(0);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.15s ease;
 }
 .btn:hover {
-  background: var(--forest-deep);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-glow);
+  background: linear-gradient(180deg, #346045 0%, #245634 55%, #1a4529 100%);
+  transform: translateY(-3px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.2),
+    inset 0 -1px 0 rgba(0,0,0,0.22),
+    0 7px 0 #0d2819,
+    0 14px 32px rgba(13,40,25,0.65),
+    0 4px 10px rgba(0,0,0,0.32);
+}
+.btn:active {
+  transform: translateY(2px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.12),
+    inset 0 -1px 0 rgba(0,0,0,0.18),
+    0 1px 0 #0d2819,
+    0 3px 10px rgba(13,40,25,0.4),
+    0 1px 3px rgba(0,0,0,0.2);
 }
 .btn svg { width: 16px; height: 16px; }
 .btn-ghost {
   background: transparent;
   color: var(--forest);
   border: 1.5px solid var(--forest);
-  box-shadow: none;
+  box-shadow:
+    0 2px 0 rgba(31,77,46,0.25),
+    0 4px 12px rgba(31,77,46,0.12);
+  text-shadow: none;
 }
 .btn-ghost:hover {
   background: var(--forest);
   color: white;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.22);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.15),
+    0 5px 0 #0d2819,
+    0 10px 24px rgba(13,40,25,0.5);
+  transform: translateY(-3px);
+}
+.btn-ghost:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 0 rgba(31,77,46,0.2), 0 2px 6px rgba(31,77,46,0.1);
 }
 
 /* Reveal on scroll */
@@ -258,4 +359,84 @@ a { color: inherit; text-decoration: none; }
   .call-btn { padding: 12px 14px; }
   .sticky-call .num { display: none; }
   .sticky-call { padding: 14px; }
+}
+
+/* ============== SCROLL REVEAL ============== */
+.sr {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(.2,.7,.2,1), transform 0.7s cubic-bezier(.2,.7,.2,1);
+}
+.sr.sr-in { opacity: 1; transform: translateY(0); }
+
+/* Hero noise grain overlay */
+.hero-grain {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23g)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.038;
+  mix-blend-mode: multiply;
+}
+
+/* ============================================================
+   Apple Polish Layer — 30% subtle refinement
+   Pure additive. No color, layout, or typography changes.
+   Targets: tactile feedback, easings, focus rings, type rendering.
+   ============================================================ */
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+  text-rendering: optimizeLegibility;
+  overscroll-behavior-y: none;
+}
+
+/* iOS-style tactile press — does not override the existing translateY animations,
+   only adds an extra micro-shrink on tap. Buttons feel responsive without losing the
+   existing skeuomorphic feedback. */
+.btn, .btn-ghost, .call-btn {
+  -webkit-tap-highlight-color: transparent;
+  will-change: transform;
+}
+
+/* Tabular numbers for any digits (phone, year, prices) — Apple SF default behavior */
+.call-btn, .nav, .footer, .form-card {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Apple-style focus ring — soft, blue-forest blend, 3px ring + offset.
+   Activates only for keyboard navigation (preserves mouse UX). */
+.btn:focus-visible,
+.btn-ghost:focus-visible,
+.call-btn:focus-visible,
+.nav a:focus-visible {
+  outline: 3px solid rgba(31, 77, 46, 0.45);
+  outline-offset: 3px;
+  border-radius: 12px;
+}
+
+/* Smoother native scroll on iOS / trackpad */
+html { -webkit-overflow-scrolling: touch; }
+
+/* Selection color in brand palette (replaces default blue) */
+::selection { background: rgba(31, 77, 46, 0.18); color: var(--forest-deep); }
+::-moz-selection { background: rgba(31, 77, 46, 0.18); color: var(--forest-deep); }
+
+/* Respect reduced motion preference (Apple HIG / WCAG AAA) */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }
