@@ -5,7 +5,13 @@ const rateLimit = require('express-rate-limit');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resendApiKey = process.env.RESEND_API_KEY;
+// Resend throws on construction when the key is missing; keep it optional so the
+// static landing still boots without email configured (contact form degrades).
+const resend = resendApiKey ? new Resend(resendApiKey) : null;
+if (!resend) {
+  console.warn('[WARN] RESEND_API_KEY not set — contact submissions logged but not emailed.');
+}
 
 // Railway sits behind a proxy — required for accurate client IPs (rate limiting, logging)
 app.set('trust proxy', 1);
@@ -79,8 +85,9 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
 
   console.log('[CONTACT]', JSON.stringify(submission));
 
-  // Send emails in parallel — failures don't block the 200 response
-  Promise.allSettled([
+  // Send emails in parallel — failures don't block the 200 response.
+  // Skipped when RESEND_API_KEY is absent; the submission is already logged above.
+  if (resend) Promise.allSettled([
     // Welcome email to the person who submitted
     resend.emails.send({
       from: 'RP and Associates <info@rpandassociates.com>',
